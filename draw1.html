@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#div1{
+				width: 30px;
+				height: 500px;
+				background-color: cornflowerblue;
+				position: absolute;
+				left: 20px;
+				top: 20px;
+				border-radius: 30px;
+			}
+			#div2{
+				width: 30px;
+				height: 30px;
+				background-color: #25D071;
+				position: absolute;
+				left: 0px;
+				top: 0;
+				border-radius: 30px;
+			}
+			#div3{
+				width: 500px;
+				height: 0;
+				background-color: #CD6A33;
+				position: absolute;
+				left: 60px;
+				top:20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<div id="div2"></div>
+		</div>
+		<div id="div3"></div>
+		<script type="text/javascript">
+			var oDiv1 = document.getElementById('div1');
+			var oDiv2 = document.getElementById('div2');
+			var oDiv3 = document.getElementById('div3');
+			
+			oDiv2.onmousedown = function(ev){
+				var ev = ev||event;
+				
+				//鼠标点击的位置距离元素边界的距离
+				var disy = ev.clientY - this.offsetTop;
+				document.onmousemove = function(ev){
+					var ev = ev||event;
+					var a = ev.clientY-disy;
+					var b = 0;
+					
+					if(a>oDiv1.clientHeight-oDiv2.clientHeight){
+						a = oDiv1.clientHeight-oDiv2.clientHeight;
+					}else if(a<0){
+						a=0;
+					}
+					
+					b = a/(oDiv1.clientHeight-oDiv2.clientHeight);
+					
+					oDiv2.style.top = a +'px';
+					oDiv3.style.height =500*b+'px';
+				}
+				document.onmouseup = function(){
+					document.onmousemove = document.onmouseup = null;
+				}
+			}
+		</script>
+	</body>
+</html>
